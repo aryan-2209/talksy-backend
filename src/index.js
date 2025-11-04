@@ -20,13 +20,17 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://talksyfe.vercel.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
+
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
